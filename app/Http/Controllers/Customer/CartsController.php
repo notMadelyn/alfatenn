@@ -31,10 +31,13 @@ class CartsController extends Controller
         $total_harga = 0;
 
         foreach($carts as $cart){
-            $total_harga += $cart->product->price;
+            $total_harga += $cart->product->price * $cart->quantity;
 
         }
         
+
+        $carts = Transaction::where('user_id',Auth::user()->id)->where('status','unpaid')->get();
+                $jumlah = $carts->sum('quantity');
         // dd($cart->product);
         // dd($total_harga);
 
@@ -104,6 +107,22 @@ class CartsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Transaction::find($id)->delete();
+
+        return redirect()->back();
+    }
+
+    public function editQty(Request $request)
+    {
+
+        $check = Transaction::where("product_id", $request->product_id)->where("user_id", Auth::user()->id)->where("status", "unpaid")->with("product.discountS")->first();
+
+        if ($check !== null) {
+            Transaction::find($check->id)->update([
+                "quantity" => $request->quantity
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Berhasil Menambahkan produk kedalam Carts');
     }
 }

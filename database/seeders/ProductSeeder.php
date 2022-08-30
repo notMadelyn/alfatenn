@@ -70,7 +70,31 @@ class ProductSeeder extends Seeder
             'desc'=> 'Lejat Bergiji',
             'category_id'=> 2,
         ]);
- 
+
+        Product::create([
+            'name'=> 'Nasi Campur Babi',
+            'price'=> 50000,
+            'thumbnail'=> 'nasicampur.jpg',
+            'desc'=> 'Insyallah halal',
+            'category_id'=> 2,
+        ]);
+
+        Product::create([
+            'name'=> 'One Push Vape',
+            'price'=> 20500,
+            'thumbnail'=> 'vape.jpg',
+            'desc'=> 'Sekali Semprot Nyawa HILANG',
+            'category_id'=> 2,
+        ]);
+
+        Product::create([
+            'name'=> 'Lemonilo Goreng',
+            'price'=> 3500,
+            'thumbnail'=> 'lemonilo.jpg',
+            'desc'=> 'Nikmati sensasi makan mie seperti HULUK',
+            'category_id'=> 2,
+        ]);
+
         Product::create([
             'name'=> 'Pocari Sweat',
             'price'=> 7000,
