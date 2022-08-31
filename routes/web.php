@@ -34,7 +34,7 @@ Route::controller(HomeController::class)
 
 Route::controller(CartsController::class)->prefix('customer')->group(function(){
     Route::get('/carts' , 'index')->name('customer.carts');
-    Route::get('/carts/delete/{id}' , 'destroy')->name('customer.carts.delete');
+    Route::delete('/carts/delete/{id}' , 'destroy')->name('customer.carts.delete');
     Route::post('/cart/edit/', 'editQty')->name('customer.editCart');
 
 });

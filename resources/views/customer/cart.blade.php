@@ -23,7 +23,7 @@
                         @foreach ($carts as $d)
                             <div class="row g-0">
                                 <div class="col-md-4 text-center">
-                                    <img src="{{ asset('/storage/products/' . $d->product->thumbnail) }}"
+                                    <img src="{{ asset('/storage/img/' . $d->product->thumbnail) }}"
                                         class="img-fluid rounded-start " alt="..." height="100px" width="100px">
                                         
                                 </div>
@@ -36,12 +36,44 @@
                                             data-bs-target="#editQty-{{ $d->id }}">
                                             Edit
                                         </button>
-                                        <a href="{{ route('customer.carts.delete', $d->id) }}"
-                                            class="btn shadow btn-outline-danger btn-sm">delete</a>
+
+                                        <button type="button" class="btn shadow btn-outline-warning btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#delete{{ $d->id }}">
+                                            Delete
+                                        </button>
+                                        {{-- <a href="{{ route('customer.carts.delete', $d->id) }}"
+                                            class="btn shadow btn-outline-danger btn-sm">delete</a> --}}
                                             <hr class="divider">
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- DELETE --}}
+                            <div class="modal fade" id="delete{{ $d->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action={{ route('customer.carts.delete', $d->id) }} method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class="modal-body">
+                                                <center class="mt-3">
+                                                    <h5>
+                                                        YAKIN MAU APUS INI DEK ?
+                                                    </h5>
+                                                </center>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tidak</button>
+                                                <button type="submit" class="btn btn-danger">Hapus!</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- DELETE --}}
 
                             {{-- modal edit--}}
                             <div class="modal fade" id="editQty-{{ $d->id }}" tabindex="-1"

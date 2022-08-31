@@ -21,7 +21,10 @@ class CartsController extends Controller
      */
     public function index()
     {
-        $carts = Transaction::where('user_id' , Auth::user()->id)->with('product')->get();
+        $carts = Transaction::where('user_id' , Auth::user()->id)
+        ->with('product')
+        ->groupBy('product_id')
+        ->get();
         $cartTotal = Transaction::where('user_id',Auth::user()->id)->where('status' , 'unpaid')->get();
         $jumlah = $cartTotal->sum('quantity');
         if($jumlah > 99) {
